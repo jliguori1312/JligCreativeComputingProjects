@@ -1,0 +1,59 @@
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+int value;
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  // Read the photoresistor
+  value = analogRead(A0);
+
+  // Map the input to 8 bit, and reverse it
+  int mappedValue = map(value, 35, 1020, 255, 0);
+  Serial.println(mappedValue);
+
+
+
+
+  // Run different different scenarios based on light level
+  if (mappedValue >= 200) {
+    analogWrite(9, mappedValue);
+    delay(300);
+    analogWrite(9, 0);
+    delay(300);
+  }
+  else {
+
+    if (mappedValue >= 150) {
+      analogWrite(9, mappedValue);
+      delay(500);
+      analogWrite(9, 0);
+      delay(350);
+    }
+    else {
+
+      if (mappedValue >= 100) {
+        analogWrite(9, mappedValue);
+        delay(750);
+        analogWrite(9, 0);
+        delay(300);
+      }
+      else {
+
+        if (mappedValue >= 50) {
+          analogWrite(9, mappedValue);
+          delay(2000);
+          analogWrite(9, 0);
+          delay(200);
+        }
+        else
+        {
+          analogWrite(9, 5);
+        }
+      }
+    }
+  }
+}
